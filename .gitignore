@@ -132,6 +132,7 @@ dmypy.json
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea/*
 
 # Generated files
 .idea/**/contentModel.xml
@@ -265,3 +266,6 @@ pip-selfcheck.json
 
 
 # End of https://www.gitignore.io/api/pycharm,python,django
+
+#sqlite db
+app/*.db
