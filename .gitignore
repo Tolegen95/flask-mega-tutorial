@@ -269,3 +269,6 @@ pip-selfcheck.json
 
 #sqlite db
 app/*.db
+
+# logs folder
+log
