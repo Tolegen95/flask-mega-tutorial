@@ -84,6 +84,42 @@ def edit_profile():
     return render_template('edit_profile.html', form=form)
 
 
+@app.route('/follow/<username>')
+@login_required
+def follow(username):
+    followed_user = User.query.filter_by(username=username).first()
+    if not followed_user:
+        flash('No user with such username')
+        return redirect(url_for('index'))
+
+    if current_user == followed_user:
+        flash('You cannot follow yourself')
+        return redirect(url_for('index'))
+
+    current_user.follow(followed_user)
+    db.session.commit()
+    flash('You are following {}!'.format(followed_user))
+    return redirect(url_for('user', username=username))
+
+
+@app.route('/unfollow/<username>')
+@login_required
+def unfollow(username):
+    unfollowed_user = User.query.filter_by(username=username).first()
+    if not unfollowed_user:
+        flash('No user with such username')
+        return redirect(url_for('index'))
+
+    if current_user == unfollowed_user:
+        flash('You cannot unfollow yourself')
+        return redirect(url_for('index'))
+
+    current_user.unfollow(unfollowed_user)
+    db.session.commit()
+    flash('You have unfollowed {}!'.format(unfollowed_user))
+    return redirect(url_for('user', username=username))
+
+
 @app.before_request
 def update_user_last_seen():
     if current_user.is_authenticated:
