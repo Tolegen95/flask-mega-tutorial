@@ -46,5 +46,6 @@ if not app.debug:
     file_handler.setLevel(logging.INFO)
 
     app.logger.addHandler(file_handler)
+    
     app.logger.setLevel(logging.INFO)
     app.logger.info('Microblog startup')

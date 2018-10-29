@@ -44,3 +44,8 @@ class EditProfileForm(FlaskForm):
         if username.data != self.original_username:
             if User.query.filter_by(username=username.data).first():
                 raise ValidationError('Username is already taken')
+
+
+class PostForm(FlaskForm):
+    post = TextAreaField('Write something', validators=[DataRequired(), Length(min=1, max=140)])
+    submit = SubmitField('Submit')
