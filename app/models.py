@@ -1,11 +1,14 @@
 import hashlib
+import logging
 from datetime import datetime
 
+import jwt
+from time import time
 from flask_login import UserMixin
+from jwt import InvalidSignatureError, ExpiredSignatureError
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from app import db, login
-
+from app import db, login, app
 
 GRAVATAR_URL = 'https://www.gravatar.com/avatar/{emailhex}?d=identicon&s={size}'
 
@@ -14,6 +17,8 @@ followers = db.Table('followers',
         db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
         db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
 )
+
+logger = logging.getLogger(__name__)
 
 
 class User(UserMixin, db.Model):
@@ -65,6 +70,20 @@ class User(UserMixin, db.Model):
 
         own_posts = Post.query.filter_by(user_id=self.id)
         return followed.union(own_posts).order_by(Post.timestamp.desc())
+
+    def get_reset_password_token(self, expires_in=600):
+        return jwt.encode({'reset_password': self.id, 'exp': time() + expires_in},
+                          key=app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
+
+    @staticmethod
+    def verify_reset_password_token(token):
+        try:
+            user_id = jwt.decode(
+                token, key=app.config['SECRET_KEY'], algorithms=['HS256'])['reset_password']
+        except (InvalidSignatureError, ExpiredSignatureError) as exc:
+            logger.exception(str(exc))
+            return
+        return User.query.get(user_id)
 
 
 class Post(db.Model):

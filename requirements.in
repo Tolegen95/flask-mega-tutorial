@@ -4,3 +4,5 @@ flask-sqlalchemy
 flask-migrate
 flask-shell-ipython
 flask-login
+Flask-Mail
+pyjwt

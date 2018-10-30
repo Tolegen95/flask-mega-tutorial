@@ -6,9 +6,11 @@
 #
 alembic==1.0.1            # via flask-migrate
 backcall==0.1.0           # via ipython
+blinker==1.4              # via flask-mail
 click==7.0                # via flask, flask-shell-ipython
 decorator==4.3.0          # via ipython, traitlets
 flask-login==0.4.1
+flask-mail==0.9.1
 flask-migrate==2.2.1
 flask-shell-ipython==0.3.1
 flask-sqlalchemy==2.3.2
@@ -27,6 +29,7 @@ pickleshare==0.7.5        # via ipython
 prompt-toolkit==2.0.6     # via ipython
 ptyprocess==0.6.0         # via pexpect
 pygments==2.2.0           # via ipython
+pyjwt==1.6.4
 python-dateutil==2.7.3    # via alembic
 python-editor==1.0.3      # via alembic
 simplegeneric==0.8.1      # via ipython
