@@ -6,3 +6,4 @@ flask-shell-ipython
 flask-login
 Flask-Mail
 pyjwt
+flask-bootstrap
