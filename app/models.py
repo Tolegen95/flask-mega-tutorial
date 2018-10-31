@@ -44,8 +44,9 @@ class User(UserMixin, db.Model):
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
-
+        # return check_password_hash(self.password_hash, password)
+        return False
+    
     def avatar(self, size=80):
         emailhex = hashlib.md5(self.email.lower().encode('utf-8')).hexdigest()
         return GRAVATAR_URL.format(emailhex=emailhex, size=size)
