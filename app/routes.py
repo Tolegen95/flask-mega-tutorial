@@ -119,7 +119,7 @@ def unfollow(username):
 
 
 @app.route('/', methods=['GET', 'POST'])
-@app.route('/index', methods=['GET', 'POST'])
+@app.route('/index/', methods=['GET', 'POST'])
 @login_required
 def index():
     form = PostForm()

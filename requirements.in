@@ -7,3 +7,4 @@ flask-login
 Flask-Mail
 pyjwt
 flask-bootstrap
+flask-moment
